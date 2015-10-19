@@ -4,7 +4,7 @@
 \name{s4c_mimsim_input}
 \alias{s4c_mimsim_input}
 \alias{s4c_mimsim_input-class}
-\title{An S4 class representing inputs used within function mimsim}
+\title{An S4 class for \code{mimsim} inputs}
 \description{
 This is an internal S4 class within \code{\link{mimsim}}.
 }

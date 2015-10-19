@@ -4,7 +4,7 @@
 \name{s4c_environment_summary}
 \alias{s4c_environment_summary}
 \alias{s4c_environment_summary-class}
-\title{An S4 class representing output from environment_E_summary}
+\title{An S4 class for \code{environment_E_summary} output}
 \description{
 This is an internal S4 class within \code{\link{environment_E_summary}}.
 }

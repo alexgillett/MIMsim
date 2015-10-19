@@ -4,7 +4,7 @@
 \name{s4c_polygenic_summary}
 \alias{s4c_polygenic_summary}
 \alias{s4c_polygenic_summary-class}
-\title{An S4 class representing output from polygenic_A_summary}
+\title{An S4 class for \code{polygenic_A_summary} output}
 \description{
 This is an internal S4 class within \code{\link{polygenic_A_summary}}.
 }

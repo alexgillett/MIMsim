@@ -1,4 +1,4 @@
-#' An S4 class representing output from polygenic_A_summary
+#' An S4 class for \code{polygenic_A_summary} output
 #'
 #' This is an internal S4 class within \code{\link{polygenic_A_summary}}.
 #'

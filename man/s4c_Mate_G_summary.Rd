@@ -4,7 +4,7 @@
 \name{s4c_Mate_G_summary}
 \alias{s4c_Mate_G_summary}
 \alias{s4c_Mate_G_summary-class}
-\title{An S4 class representing output from major_locus_G_summary for the mate of the proband}
+\title{An S4 class for \code{major_locus_G_summary} output: mates}
 \description{
 This is an internal S4 class within \code{\link{major_locus_G_summary}}.
 }

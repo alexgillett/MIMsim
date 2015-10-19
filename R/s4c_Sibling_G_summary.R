@@ -1,4 +1,4 @@
-#' An S4 class representing output from major_locus_G_summary for siblings of the proband
+#' An S4 class for \code{major_locus_G_summary} output: siblings
 #'
 #' This is an internal S4 class within \code{\link{major_locus_G_summary}}.
 #'

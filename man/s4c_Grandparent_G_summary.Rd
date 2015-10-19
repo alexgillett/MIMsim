@@ -4,7 +4,7 @@
 \name{s4c_Grandparent_G_summary}
 \alias{s4c_Grandparent_G_summary}
 \alias{s4c_Grandparent_G_summary-class}
-\title{An S4 class representing output from major_locus_G_summary for grandparents of the proband}
+\title{An S4 class for \code{major_locus_G_summary} output: grandparents}
 \description{
 This is an internal S4 class within \code{\link{major_locus_G_summary}}.
 }

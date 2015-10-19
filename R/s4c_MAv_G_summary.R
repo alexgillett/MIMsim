@@ -1,4 +1,4 @@
-#' An S4 class representing output from major_locus_G_summary for aunts and uncles of the proband (by marriage)
+#' An S4 class for \code{major_locus_G_summary} output: aunts and uncles (by marriage)
 #'
 #' This is an internal S4 class within \code{\link{major_locus_G_summary}}.
 #'

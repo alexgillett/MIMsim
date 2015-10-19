@@ -4,7 +4,7 @@
 \name{s4c_mimsim_output}
 \alias{s4c_mimsim_output}
 \alias{s4c_mimsim_output-class}
-\title{An S4 class representing output from function \code{mimsim}}
+\title{An S4 class for \code{mimsim} output}
 \description{
 This is an internal S4 class within \code{\link{mimsim}}, used to store \code{mimsim} output. Inherits slots from S4 class \code{input_normal}.
 }

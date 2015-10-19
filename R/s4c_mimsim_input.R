@@ -1,4 +1,4 @@
-#' An S4 class representing inputs used within function mimsim
+#' An S4 class for \code{mimsim} inputs
 #'
 #' This is an internal S4 class within \code{\link{mimsim}}.
 #'

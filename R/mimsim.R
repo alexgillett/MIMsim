@@ -1,6 +1,6 @@
 #' Mixed inheritance model simulation of disease within families
 #'
-#' \code{mimsim} uses a mixed inheritance model to simulate disease within \eqn{3} or \eqn{4} generation families. Families are generated forwards-in-time. Outputted families contain a \emph{proband}; an eligible and consenting individual in Generation III. The probability that an eligible individual consents can be a function of the family history of disease, allowing the user to generate family data when there is ascertainment bias. 
+#' \code{mimsim} uses a mixed inheritance model to simulate disease within 3 or 4 generation families. Families are generated forwards-in-time. Outputted families contain a \emph{proband}; an eligible and consenting individual in Generation III. The probability that an eligible individual consents can be a function of the family history of disease, allowing the user to generate family data when there is ascertainment bias. 
 #' 
 #' \code{mimsim} inputs can broadly be categorised into 3 classes:
 #' 
@@ -148,6 +148,13 @@
 #' \code{simulation_summary} for estimates of disease risk by relative type.
 #'
 #' \code{\link{probability_consent_count}} allows users to explore the probability of consent used by \code{mimsim} when \code{FH = "count"}.
+#'
+#' @references 
+#' Morton, N.E. and MacLean C.J. (1974) Analysis of family resemblance. 3. Complex segregation of quantitative traits. \emph{American Journal of Human Genetics (26)}, 489 - 503.
+#' 
+#' Falconer, D.S. (1960) \emph{Introduction to Quantitative Genetics.} New York, Ronald Press Co.
+#'  
+#' Falconer, D.S. (1965) The inheritance of liability to certain diseases, estimated from the incidence among relatives. \emph{Annuals of Human Genetics (29)}, 51 - 76.
 #'
 #' @import methods
 #'

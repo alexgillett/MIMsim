@@ -1,4 +1,4 @@
-#' An S4 class representing output from function \code{mimsim}
+#' An S4 class for \code{mimsim} output
 #'
 #' This is an internal S4 class within \code{\link{mimsim}}, used to store \code{mimsim} output. Inherits slots from S4 class \code{input_normal}.
 #'
