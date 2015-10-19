@@ -28,6 +28,8 @@ License: GPL (>= 2)
 Suggests:
     knitr
 VignetteBuilder: knitr
+URL: http://github.com/alexgillett/MIMsim
+BugReports: http://github.com/alexgillett/MIMsim/issues
 Collate:
     'MIMsim-package.R'
     'environment_E_summary.R'
