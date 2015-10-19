@@ -1,0 +1,56 @@
+Package: MIMsim
+Type: Package
+Title: Mixed inheritance model simulation of disease within family studies
+Version: 0.1
+Date: 2015-10-14
+Authors@R: c(
+    person("Alexandra", "Gillett", email = "alexandra.a.gillett@kcl.ac.uk", role = c("aut", "cre")),
+    person("Ammar", "Al-Chalabi",role = "aut"),
+    person(c("Cathryn", "M"), "Lewis", role = "aut"))
+Depends:
+    R (>= 2.14.1)
+Imports:
+    methods,
+    data.table,
+    plyr,
+    kinship2
+Description: A package for simulating data from family studies of disease risk.
+    Disease is modelled using a mixed inheritance model. Simulated pedigrees are
+    bi-linear and span 3 or 4 generations. The ascertainment of families can be
+    influenced by the family history of disease, allowing users of MIMsim to explore
+    the effect of ascertainment bias within family studies of disease risk and
+    penetrance.
+Author: Alexandra Gillett [aut, cre],
+    Ammar Al-Chalabi [aut],
+    Cathryn M Lewis [aut]
+Maintainer: Alexandra Gillett <alexandra.a.gillett@kcl.ac.uk>
+License: GPL (>= 2)
+Suggests:
+    knitr
+VignetteBuilder: knitr
+Collate:
+    'MIMsim-package.R'
+    'environment_E_summary.R'
+    'major_locus_G_summary.R'
+    'mim_single_ped_binaryFH.R'
+    'mim_single_ped_countFH.R'
+    'mimsim.R'
+    'polygenic_A_summary.R'
+    'probability_consent_count.R'
+    'reformat4plotting.R'
+    's4c_Av_G_summary.R'
+    's4c_Cousin_G_summary.R'
+    's4c_Grandparent_G_summary.R'
+    's4c_MAv_G_summary.R'
+    's4c_Mate_G_summary.R'
+    's4c_Offspring_G_summary.R'
+    's4c_Parent_G_summary.R'
+    's4c_RRR_output.R'
+    's4c_Sibling_G_summary.R'
+    's4c_environment_summary.R'
+    's4c_marginal_output.R'
+    's4c_mimsim_input.R'
+    's4c_mimsim_output.R'
+    's4c_polygenic_summary.R'
+    's4c_simulation_summary.R'
+    'simulation_summary.R'

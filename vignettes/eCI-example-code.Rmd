@@ -1,0 +1,344 @@
+---
+title: "eCI example code"
+author: "Alexandra Gillett, Ammar Al-Chalabi, Cathryn M Lewis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{eCI example code}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+This vignette provides sample code for storing output from *mimsim*, and its summary functions, over repeated runs. The stored data can be used to calculate empirical confidence intervals for summary statistics.
+
+***********
+## Introduction
+
+*MIMsim* is a package for the simulation of disease within family studies. The disease model used is a mixed inheritance model (MIM); a liability threshold approach where disease status can be jointly influence by a polygenic component, a major disease locus and an environmental component.
+
+The simulation function is called *mimsim*. Running *mimsim* will produce *n* families, where *n* is specified by the user. Summary statistics can then be calculated for these families. For example, the *simulation_summary* function calculates the probability of disease stratified by relative type (with respect to the proband) and major locus genotype.
+
+A user may also wish to calculate empirical confidence intervals (eCIs) for summary statistics. This can be done by repeated calls to *mimsim* and the summary functions. Here we present sample code containing one way a user can reformat and store data over repeated runs, and then use this data to calculate confidence intervals for selected summary statistics.
+
+This vignette will use the summary function *simulation_summary* and an example family study scernario to demonstrate how to calculate eCIs. The presented code can be updated for other study scenarios and summary functions (*polygenic_A_summary*, *major_locus_G_summary* and *environment_E_summary*).
+
+## Example outline
+In this example we are simulating a family study of the penetrance of a major locus, where:
+
+* the major locus $G$ is dominant with respect to disease such that;
+
+    * the probability of disease for a non carrier $p(D = 1 | G = 0) = 0.03$,
+    
+    * the probability of disease for a carrier $p(D = 1 | G \geq 1)= 0.25$, and,
+    
+    * the risk allele frequency of the major locus $maf = 0.002$; $G \sim Bi(2, 0.002)$.
+    
+* the proportion of variance in liability to disease attributable to a polygenic component $A$ is 0.24; $A \sim N(0, 0.24)$,
+
+*  the proportion of variance in liability to disease attributable to an environmental component $E$ is 0.21; $E \sim N(0, 0.21)$,
+
+* there is no within-study ascertainment bias due to the family history of disease influencing recruitment to the study,
+
+* outputted families all have the same fixed $4$ generation, family structure with every mating pair having $2$ offspring, and,
+
+* $100$ families are ascertained.
+
+We are interested in estimates of disease risk for the relatives of a proband, including estimates stratified by major locus carrier status.
+
+## Sample code part 1: single call to *mimsim* and *simulation_summary*:
+
+Assuming *MIMsim* has been installed, we start by loading the package into R:
+```{r}
+library(MIMsim)
+```
+Translating the information from the *Example outline* section into *mimsim* inputs, we have:
+
+* *n = 100*,
+
+* *penetrance = c(0.03, 0.25, 0.25)*,
+
+* *maf = 0.002*,
+
+* *h2 = 0.24*,
+
+* *r2= 0.21*.
+
+* *eligible = "Genotype"* (the default) because this is a penetrance study,
+
+* no ascertainment bias due to the family history of disease:
+
+    * *FH = "binary"* (the default),
+    
+    * *relative = c("P", "S", "GP")* (the default), and,
+    
+    * *pConsent = c(1, 1)* (the default).
+
+* a fixed pedigree structure of $4$ generations where all mating pairs have $2$ offspring:
+
+    * *Sibship = "Fixed"*,
+    
+    * *mean_sibship = c(2,2,2)*, and,
+    
+    * *offspring = TRUE* (the default).
+
+Therefore, in this example, to run *mimsim* once we type:
+```{r}
+## Single run of mimsim
+run_example <- mimsim(n=100, penetrance=c(0.03, 0.25, 0.25) , maf=0.002, h2=0.24,
+ r2=0.21, sibship="Fixed", mean_sibship=c(2,2,2))
+
+## Look at output for pedigree 1 in output
+run_example@pedigree[run_example@pedigree$Pedigree == 1, ]
+
+## What is the prevalence of disease?
+run_example@prevalence
+
+## Confirmation of mode of inheritance of major locus
+run_example@G_MOI
+```
+Next, we run *simulation_summary* to get estimates of disease risk and recurrence risk ratios for relatives of the proband.
+```{r}
+## Summary of disease risk for mimsim output
+summ_example <- simulation_summary(run_example)
+
+## View estimates of disease risk for carriers of a major locus risk variant
+### NB: RRR = recurrence risk ratio
+summ_example@RRR_carrier
+```
+## Sample code part 2: repeated calls to *MIMsim* functions and storage of output
+
+We are going to run the above *mimsim* command, and *simulation_summary* $500$ times. From the *mimsim* output we are going to save:
+
+* the pedigree *data.frame* found in mimsim.object\@pedigree and
+
+* the proband information *data.frame* found in mimsim.object\@proband_info.
+
+It is a good idea to store the pedigree files, as summary statistics and results can always be re-created from this data.
+We are going to store the pedigree data sets from all runs of *mimsim* in a single *.txt* file by using *append = T* in *write.table*. Users could also store the pedigree data sets in separate files.
+Similarly, we will save all proband information data sets in a single *.txt* file.
+
+From the *simulation_summary* output we are going to store the following data tables:
+
+* *RRR*; for each relative of type $R$ this *data.table* contains:
+
+    * *N*; the number of relatives of type $R$,
+    
+    * *K*; denotes the probability of disease given an individual is a relative of type $R$ to a proband, and the family has been ascertained, $K_{R} = p(D = 1 | R, ascertained)$, and,
+    
+    * *lambda*; denotes the recurrence risk ratio defined as $\lambda_{R} = p(D = 1 | R, ascertained)/p(D = 1)$.
+
+* *RRR_G0*; for each relative of type $R$ this *data.table* contains:
+
+    * *N_G0*; the number of relatives of type $R$ who have $G_{R} = 0$,
+    
+    * *K_G0*; denotes the probability of disease given an individual is a relative of type $R$ to a proband, they do not carry a risk variant at the major locus and the family has been ascertained, $K_{R, G_{R}=0} = p(D = 1 | R, G_{R} = 0, ascertained)$, and,
+    
+    * *lambda_G0*; denotes a stratified recurrence risk ratio defined as $\lambda_{R, G_{R}=0} = p(D = 1 | R, G_{R} = 0, ascertained)/p(D = 1 | G = 0)$.
+
+* *RRR_carrier*; for each relative of type $R$ this *data.table* contains:
+
+    * *N_carrier*; the number of relatives of type $R$ who have $G_{R} \geq 1$,
+    
+    * *K_carrier*; denotes the probability of disease given an individual is a relative of type $R$ to a proband, they carry a risk variant at the major locus and the family has been ascertained, $K_{R, G_{R}\geq1} = p(D = 1 | R, G_{R} \geq 1, ascertained)$, and,
+    
+    * *lambda_carrier*; denotes a stratified recurrence risk ratio defined as $\lambda_{R, G_{R}\geq1} = p(D = 1 | R, G_{R} \geq 1, ascertained)/p(D = 1 | G \geq 1)$.
+
+For each *data.table* to be stored we are going to restructure the output so that it can be stored in a single *.txt* file.
+
+We will create the following *.txt* files:
+
+* pedigree_example.txt,
+
+* pb_info_example.txt,
+
+* RRR_summary_example.txt,
+
+* RRR_G0_summary_example.txt, and,
+
+* RRR_carrier_summary_example.txt
+
+To do this we start by creating column headings for the files, define a path for each file and write the columns to file. 
+
+```{r, eval = FALSE}
+################################
+## Column names:
+################################
+## Column names for: 1. pedigree and 2. proband information output file:
+## Note addition of "Run" column in addition to colnames(mimsim.object@pedigree)
+pedigree_names <- c("Run", "Pedigree", "ID", "Generation", "Father", "Mother", "Mate", 
+"Sex", "A", "G", "E", "Liability", "D", "child_num", "Relationship")
+pb_names <- c("Run", "Pedigree_ID", "Proband_ID", "FH1", "FH2", "FH3", "n_S", 
+"n_S_D", "n_P", "n_P_D" , "n_O", "n_O_D", "n_GP", "n_GP_D", "n_Av", "n_Av_D", 
+"n_MAv", "n_MAv_D", "n_C", "n_C_D", "n_M", "n_M_D")
+################################
+## Routine to create column names for disease risk (K) and recurrence risk ratio (lambda) output files:
+################################
+## Part 1: List of relatives
+## NB: should be in same order as simulation.summary(mimsim.object)@RRR[,Relationship]
+rel.types <- c("S", "P", "O", "GP", "Av", "C", "MAv", "M")
+
+## List of output types in simulation.summary(mimsim.object)@RRR
+## should be in the same order as colnames(simulation.summary(mimsim.object)@RRR) excluding Relationship
+sum.types <- c("N", "K", "lambda")
+
+## Simple double loop pasting 'output types' and 'relative types' together:
+RRR_names <- NULL
+for(i in 1:length(rel.types)){
+	for(j in 1:length(sum.types)){
+		RRR_names <- c(RRR_names, paste(sum.types[j], rel.types[i], sep="_"))
+	}
+}
+## View names
+RRR_names
+
+################################
+## Define paths
+################################
+## 1. Define a path to the folder where you want your output to go, for example
+path.out <- "/Users/MYNAME/Desktop/mimsim_output/"
+
+## 2. Define paths for each file
+ped.path.out <- paste(path.out, "pedigree_example.txt", sep="")
+pb.path.out <- paste(path.out, "pb_info_example.txt", sep="")
+RRR.path.out <- paste(path.out, "RRR_summary_example.txt", sep="")
+RRR.G0.path.out <- paste(path.out, "RRR_G0_summary_example.txt", sep="")
+RRR.carrier.path.out <- paste(path.out, "RRR_carrier_summary_example.txt", sep="")
+
+################################
+## Write the column headers to file
+################################
+write.table(t(matrix(pedigree_names)), file=ped.path.out, row.names=F, col.names=F)
+write.table(t(matrix(pb_names)), file=pb.path.out, row.names=F, col.names=F)
+write.table(t(matrix(RRR_names)), file=RRR.path.out, row.names=F, col.names=F)
+write.table(t(matrix(RRR_names)), file=RRR.G0.path.out, row.names=F, col.names=F)
+write.table(t(matrix(RRR_names)), file=RRR.carrier.path.out, row.names=F, col.names=F)
+```
+We have now created $5$ files for the respective output to be appended to.
+
+Next, we run a simple loop to call *mimsim* and *simulation_summary* $500$ times. Within each loop we extract the required information to be saved, reformat if necessary, and append this is to the appropriate file.
+
+```{r, eval = FALSE}
+n.reps <- 500
+for(i in 1:n.reps){
+	## i-th mimsim run:
+	output.i <- mimsim(n=100, penetrance=c(0.03, 0.25, 0.25) , maf=0.002, h2=0.24, 
+r2=0.21, sibship="Fixed", mean_sibship=c(2,2,2))
+	## i-th simulation_summary run
+	summ.i <- simulation_summary(output.i)
+	
+	## Extract pedigree data from output.i
+	ped.i <- output.i@pedigree
+	## Add the run number (i) to the pedigree data.frame
+	ped.i <- cbind(rep(i, dim(ped.i)[1]), ped.i)
+	## Write to file
+	write.table(ped.i, file=ped.path.out, row.names=F, col.names=F, append=T)
+	
+	## Extract proband information data from output.i
+	pb.i <- output.i@proband_info
+	## Add the run number (i) to the proband information data.frame
+	pb.i <- cbind(rep(i, dim(pb.i)[1]), pb.i)
+	## Write to file
+	write.table(pb.i, file=pb.path.out, row.names=F, col.names=F, append=T)
+	
+	## Extract and reformat RRR data.table from summ.i
+	rrr.i <- t(matrix(as.vector(t(summ.i@RRR[, .(N, K, lambda)]))))
+	## Write to file
+	write.table(rrr.i, file=RRR.path.out, row.names=F, col.names=F, append=T)
+	
+	## Extract and reformat RRR_G0 data.table from summ.i
+	rrr.g0.i <- t(matrix(as.vector(t(summ.i@RRR_G0[, .(N_G0, K_G0, lambda_G0)]))))
+	## Write to file
+	write.table(rrr.g0.i, file=RRR.G0.path.out, row.names=F, col.names=F, append=T)
+
+	## Extract and reformat RRR_carrier data.table from summ.i
+	rrr.carrier.i <- t(matrix(as.vector(t(summ.i@RRR_carrier[, .(N_carrier, K_carrier, 
+lambda_carrier)]))))
+	## Write to file
+	write.table(rrr.carrier.i, file=RRR.carrier.path.out, row.names=F, col.names=F, 
+append=T)	
+}
+```
+This loop can be updated to enable reformatting and storing of:
+
+* other data tables outputted by *simulation_summary*,
+
+* the data tables outputted by *polygenic_A_summary*,
+
+* the data tables outputted by *environment_E_summary*, and,
+
+* the data tables outputted by *major locus_G_summary*.
+
+## Sample code part 3: Empirical confidence intervals
+
+Now we have $500$ obsevations for a variety of summary statistics, such as; the probability of disease given relative type, the relative is a carrier of a risk variant at the major locus and the pedigree is ascertained.
+
+This final sample code section provides an example for how to:
+
+* use package *ggplot2* to create attractive plots of the density of an observed summary statistic by relative type, and,
+
+* calculate the expected value (mean) and the empirical 95% confidence interval by relative type.
+
+```{r, eval = FALSE}
+################################
+## Read in RRR carrier file
+################################
+RRR.carrier.dat <- read.table(file=RRR.carrier.path.out, header=T)
+## Check dim. Should have 500 rows:
+dim(RRR.carrier.dat)
+
+################################
+### EXAMPLE PLOTS: 1st degree relative, carriers
+################################
+## We are going to use ggplot2 for plotting so if not installed type:
+# install.packages("ggplot2")
+library(ggplot2)
+
+## Create a data.frame for plots
+df.plot <- cbind(c(RRR.carrier.dat$K_S, RRR.carrier.dat$K_P, RRR.carrier.dat$K_O),
+c(RRR.carrier.dat$lambda_S, RRR.carrier.dat$lambda_P, RRR.carrier.dat$lambda_O))
+df.plot <- data.frame(df.plot)
+colnames(df.plot) <- c("K_carrier", "lambda_carrier")
+df.plot$Relative <- c(rep("S", dim(RRR.carrier.dat)[1]), rep("P", dim(RRR.carrier.dat)[1]), 
+rep("O", dim(RRR.carrier.dat)[1]))
+df.plot$Relative <- as.factor(df.plot$Relative)
+
+## Create density plots for carrier disease risk by relative type
+ggplot(data=df.plot, aes=(x=K_carrier, fill=Relative)) + geom_density(alpha=0.5)
+## Create density plots for recurrence risk ratio by relative type
+ggplot(data=df.plot, aes=(x=lambda_carrier, fill=Relative)) + geom_density(alpha=0.5)
+
+################################
+### Empirical 95% CI for disease risk by relative
+################################\
+## Set the confidence level that we require
+ci <- 0.95
+## Translate this into probabilities to use in quantile function
+p <- c((1-ci)/2, 1 - ((1-ci)/2))
+
+## We will put output into a data.frame, called K_conf.
+## Each row will be a different relative type.
+K_conf <- rbind(c(mean(RRR.carrier.dat$K_S, na.rm=T), 
+quantile(RRR.carrier.dat$K_S, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_P, na.rm=T), 
+quantile(RRR.carrier.dat$K_P, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_O, na.rm=T), 
+quantile(RRR.carrier.dat$K_O, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_GP, na.rm=T), 
+quantile(RRR.carrier.dat$K_GP, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_Av, na.rm=T), 
+quantile(RRR.carrier.dat$K_Av, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_C, na.rm=T), 
+quantile(RRR.carrier.dat$K_C, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_MAv, na.rm=T), 
+quantile(RRR.carrier.dat$K_MAv, probs=p, na.rm=T)),
+c(mean(RRR.carrier.dat$K_M, na.rm=T), 
+quantile(RRR.carrier.dat$K_M, probs=p, na.rm=T)))
+
+row.names(K_conf) <- c("S", "P", "O", "GP", "Av", "C", "MAv", "M")
+colnames(K_conf) <- c("Mean", "Lower95pcCI", "Upper95pcCI")
+
+## NB ci, and therefore p, can be updated to calculate other CIs.
+```
+We hope this code will be useful to users of *mimsim*. We fully acknowledge that quicker ways to produce the same results exist, so please experient!
+
+Please contact the package maintainer if any errors are found.

@@ -1,0 +1,320 @@
+ggplot(data=s1.1.1, aes(x=h2_r2, y=lambda_S_study)) + geom_line() + ylab("M(S)")
+ggplot(data=s1.1.1, aes(x=h2_r2, y=lambda_S_study)) + geom_line() + ylab("M(S)")#
+ggplot(data=s1.1.1, aes(x=h2_r2, y=lambda_P_study)) + geom_line() + ylab("M(P)")
+ggplot(data=s1.1.1, aes(x=h2_r2, y=lambda_S_study)) + geom_line() + ylab("M(S)")
+min(risk_out$lambda_P_study)
+risk_out[risk_out$lambda_P_study == min(risk_out$lambda_P_study),]
+r0.9 <- risk_out[risk_out$h2 == 0.9,]
+r0.9
+dim(r0.9)
+colnames(risk_out)
+range(risk_out)
+range(risk_out$h2_r2)
+table(risk_out$h2_r2)
+risk_out$h2_r2 <- round(risk_out$h2_r2, digits=4)
+table(risk_out$h2_r2)
+ggplot(data=risk_out, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line()
+ggplot(data=risk_out[risk_out$h2_r2 == 0.5, ], aes(x=K_c, y=lambda_S_study)) + geom_line()
+ggplot(data=risk_out[risk_out$h2_r2 == 0.1111, ], aes(x=K_c, y=lambda_S_study)) + geom_line()
+ggplot(data=risk_out[risk_out$h2_r2 == 1, ], aes(x=K_c, y=lambda_S_study)) + geom_line()
+ggplot(data=risk_out[risk_out$h2_r2 == 0.5, ], aes(x=K_c, y=lambda_S_study)) + geom_line()
+ggplot(data=risk_out, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line()
+ggplot(data=risk_out[risk_out$h2_r2 == 9, ], aes(x=K_c, y=lambda_S_study)) + geom_line()
+1/0.75
+1/0.1111
+1/0.25
+1/0.75
+sub_ratio <- rbind(risk_out[risk_out$h2_r2 == 0.1111, ], risk_out[risk_out$h2_r2 == 0.25, ], risk_out[risk_out$h2_r2 == 0.5, ], risk_out[risk_out$h2_r2 == 0.75, ], risk_out[risk_out$h2_r2 == 1, ], risk_out[risk_out$h2_r2 == 1.3333, ], risk_out[risk_out$h2_r2 == 2, ], risk_out[risk_out$h2_r2 == 4, ], risk_out[risk_out$h2_r2 == 9, ])
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line()
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line()
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)")
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)")
+table(sub_ratio$maf)
+ggplot(data=sub_ratio[sub_ratio$maf == 0.005,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.005,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.05,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.1,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.45,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.005,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.45,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)")
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)")
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)")
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + labs(colour="h2/r2")
+### 1 plot for sibling ratio. #
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MS_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)") + labs(colour="h2/r2")#
+dev.off()
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)") + labs(colour="h2/r2")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.005,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.05,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.1,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")
+ggplot(data=sub_ratio[sub_ratio$maf == 0.45,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")
+### 2-4 plots for parent ratio:#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt005.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.005,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt05.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.05,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt1.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.1,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt45.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.45,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + labs(colour="h2/r2")#
+dev.off()
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + labs(colour="h2/r2")
+### 1 plot for sibling ratio. #
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MS_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + xlab("K(G≥1)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)") + labs(colour="h2/r2") + xlab("K(G≥1)") #
+dev.off()#
+#
+### 2-4 plots for parent ratio:
+warnings()
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + xlab("K(G≥1)") + labs(colour="h2/r2")
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MS_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + xlab("K(G≥1)") + labs(colour="h2/r2")#
+dev.off()
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)") + labs(colour="h2/r2") + xlab("K(G≥1)") #
+dev.off()
+### 1 plot for sibling ratio. #
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MS_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_S_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(S)") + xlab("K(Carrier)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c.pdf")#
+ggplot(data=sub_ratio, aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.5, 1) + ylab("M(P)") + labs(colour="h2/r2") + xlab("K(Carrier)") #
+dev.off()
+### 2-4 plots for parent ratio:#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt005.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.005,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("K(Carrier)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt05.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.05,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("K(Carrier)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt1.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.1,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("K(Carrier)") + labs(colour="h2/r2")#
+dev.off()#
+pdf(file="/Users/alexgillett/Documents/MIM_sim_THESIS_write_up/Sibling_risk_explained/Plots/MP_K_c_maf0pt45.pdf")#
+ggplot(data=sub_ratio[sub_ratio$maf == 0.45,], aes(x=K_c, y=lambda_P_study, colour=factor(h2_r2))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("K(Carrier)") + labs(colour="h2/r2")#
+dev.off()
+ggplot(data=sub_ratio[sub_ratio$h2_r2 == 1,], aes(x=K_c, y=lambda_P_study, colour=factor(maf))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("K(Carrier)") + labs(colour="f")
+ggplot(data=sub_ratio[sub_ratio$h2_r2 == 1,], aes(x=maf, y=lambda_P_study, colour=factor(K_c))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("f") + labs(colour="K_c")
+ggplot(data=sub_ratio[sub_ratio$h2_r2 == 1,], aes(x=K_c, y=lambda_P_study, colour=factor(maf))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("K(Carrier)") + labs(colour="f")
+x
+test <- sub_ratio[sub_ratio$h2_r2 == 1,]#
+test <- test[test$K_c == 0.15,]
+dim(test)
+ggplot(data=sub_ratio[sub_ratio$h2_r2 == 1,], aes(x=maf, y=lambda_P_study, colour=factor(K_c))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("f") + labs(colour="K_c")
+plot(test$lamdba_P_study, test$maf)
+colnames(test)
+plot(test$lambda_P_study, test$maf)
+test <- sub_ratio[sub_ratio$h2_r2 == 1,]#
+test <- test[test$K_c == 0.05,]#
+plot(test$lambda_P_study, test$maf)
+test <- sub_ratio[sub_ratio$h2_r2 == 1,]#
+test <- test[test$K_c == 0.45,]#
+plot(test$lambda_P_study, test$maf)
+test <- sub_ratio[sub_ratio$h2_r2 == 9,]#
+test <- test[test$K_c == 0.45,]#
+plot(test$lambda_P_study, test$maf)
+colnames(risk_out)
+library(data.table)#
+risk2 <- data.table(risk_out)
+risk2[, max(lambda_P_study), by = .(h2_r2, maf, K_c)]
+ggplot(data=sub_ratio[sub_ratio$h2_r2 == 1,], aes(x=maf, y=lambda_P_study, colour=factor(K_c))) + geom_line() + ylim(0.9, 1) + ylab("M(P)") + xlab("f") + labs(colour="K_c")
+risk2[, c(V1, V2) = c(max(lambda_P_study), maf), by = .(h2_r2, K_c)]
+risk2[, c(V1, V2) := c(max(lambda_P_study), maf), by = .(h2_r2, K_c)]
+risk2[, c(max(lambda_P_study), maf), by = .(h2_r2, K_c)]
+risk2[, c("v1", "v2"):=c(max(lambda_P_study), maf), by = .(h2_r2, K_c)]
+library(data.table)#
+risk2 <- data.table(risk_out)#
+risk2[, c("v1", "v2"):=c(max(lambda_P_study), maf[lambda_P_study==max(lambda_P_study)]), by = .(h2_r2, K_c)]
+risk2[, c("v1", "v2"):=c(max(lambda_P_study), index), by = .(h2_r2, K_c)]
+risk2[, c("v1"):=c(max(lambda_P_study)), by = .(h2_r2, K_c, maf)]
+risk2
+risk2 <- data.table(risk_out)#
+risk2[, c("v1"):=c(max(lambda_P_study)), by = .(h2_r2, K_c, maf)]
+risk2
+range(risk_out$lambda_S_P)
+ls()
+library(roxygen2)
+library(MIMsim)
+library(MIMsim, lib.loc="/Users/alexgillett/Desktop/")
+help(environment_E_summary)
+help(environment_E_summary, package=MIMsim)
+help(environment_E_summary, package=MIMsim, lib.loc="/Users/alexgillett/Desktop/MIMsim/")
+help(environment_E_summary, package=MIMsim, lib.loc="/Users/alexgillett/Desktop/")
+?roxygen2
+help(package="roxygen2")
+roxygenise("/Users/alexgillett/Desktop/MIMsim")
+ls()
+?document
+library(devtools)
+?document
+install(pkg="/Users/alexgillett/Desktop?MIMsim")
+install(pkg="/Users/alexgillett/Desktop/MIMsim")
+?environment_E_summary
+ls()
+library(MIMsim)
+?environment_E_summary
+library(MIMsim)
+?environment_E_summary
+library(devtools)
+library(roxygen2)
+document("/Users/alexgillett/Desktop/MIMsim/R")
+?environment_E_summary
+?glm
+?summary
+?summary.glm
+document("/Users/alexgillett/Desktop/MIMsim/R")
+?environment_E_summary
+document("/Users/alexgillett/Desktop/MIMsim/R")
+?environment_E_summary
+document("/Users/alexgillett/Desktop/MIMsim/R")
+?environment_E_summary
+document("/Users/alexgillett/Desktop/MIMsim/R")
+?environment_E_summary
+library(MIMsim)
+ped1 <- mimsim(n=100, penetrance=c(0.01, 0.7, 0.7), maf=0.005, h2=0.3, r2=0.4)
+ped1
+Esummary1 <- environment_E_summary(ped1)
+Esummary1
+Esummary1 <- environment_E_summary(ped1)
+ped1@pedigree
+environment_E_summary
+Esummary1 <- environment_E_summary(ped1)
+mimsim.object <- ped1
+include="Ascertained"
+ped <- as.data.table(mimsim.object@pedigree)
+ped
+setkey(ped, Relationship, G)
+summE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M")), .(N=.N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]
+summE
+summE[Mean==-999, Mean:=NA]
+G0summE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M"), 0), .(N=.N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]
+G0summE
+G0summE[Mean==-999, Mean:=NA]#
+	G0summE[, G:=NULL]
+G0summE
+G1summE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M"), 1), .(N=.N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]
+G1summE[Mean==-999, Mean:=NA]#
+	G1summE[, G:=NULL]
+G1summE
+G1summE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M"), 1), .(N=.N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]
+G1summE
+ped[Relationship == "M", var(E, na.rm=T)]
+ped[.c("M",1), var(E, na.rm=T)]
+ped[c("M",1), var(E, na.rm=T)]
+ped[.("M",1), var(E, na.rm=T)]
+ped[.("M",1), ]
+G1summE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M"), 1), .(N=.N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]#
+	G1summE[Mean==-999, Mean:=NA]#
+	G1summE[, G:=NULL]#
+	G2summE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M"), 2), .(N=.N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]
+G2summE
+G2summE[Mean==-999, Mean:=NA]#
+	G2summE[, G:=NULL]
+G2summE
+ped[, Carrier := as.numeric(G > 0)]#
+	setkey(ped, Relationship, Carrier)
+CarriersummE <- ped[.(c("S", "P", "O", "GP", "Av", "C", "MAv", "M"), 1), .(N= .N, Mean=if(.N > 0){mean(E, na.rm=T)}else{-999}, Variance=var(E, na.rm=T), LowerIQR = quantile(E, na.rm=T)[2], Median = quantile(E, na.rm=T)[3], UpperIQR = quantile(E, na.rm=T)[4]), by=.EACHI][,Relationship := c("S", "P", "O", "GP", "Av", "C", "MAv", "M")]#
+	CarriersummE[Mean==-999, Mean:=NA]#
+	CarriersummE[,Carrier:=NULL]
+CarriersummE
+environment_summary <- setClass("environment_summary", slots=c(E = "data.table", E_G0 = "data.table", E_G1 = "data.table", E_G2 = "data.table", E_Carrier = "data.table"))#
+	environment_summary(E=summE, E_G0=G0summE, E_G1=G1summE, E_G2=G2summE, E_Carrier=CarriersummE)
+document("/Users/alexgillett/Desktop/MIMsim/R")
+library(devtools)
+library(roxygen2)
+document("/Users/alexgillett/Desktop/MIMsim/R")
+enironment_E_summary
+install("/Users/alexgillett/Desktop/MIMsim/)
+"
+)
+install("/Users/alexgillett/Desktop/MIMsim/")
+ped1 <- mimsim(n=100, penetrance=c(0.01, 0.7, 0.7), maf=0.005, h2=0.3, r2=0.4)
+library(MIMsim)
+ped1 <- mimsim(n=100, penetrance=c(0.01, 0.7, 0.7), maf=0.005, h2=0.3, r2=0.4)
+install("/Users/alexgillett/Desktop/MIMsim/")
+ped1 <- mimsim(n=100, penetrance=c(0.01, 0.7, 0.7), maf=0.005, h2=0.3, r2=0.4)
+library(MIMsim)
+?mimsim
+ped1 <- mimsim(n=100, penetrance=c(0.01, 0.7, 0.7), maf=0.005, h2=0.3, r2=0.4)
+library(MIMsim)
+?mimsim
+ped1 <- mimsim(n=100, penetrance=c(0.01, 0.7, 0.7), maf=0.005, h2=0.3, r2=0.4)
+ped1
+polygenic_A_summary(ped1)
+environment_E_summary(ped1)
+major_locus_G_summary(ped1, relative_type = "S")
+major_locus_G_summary(ped1, relative_type = "")
+major_locus_G_summary(ped1, relative_type = "P")
+major_locus_G_summary(ped1, relative_type = "GP")
+simulation_summary(ped1)
+67*195
+dontrun
+?mimsim
+install.packages("rmarkdown")
+library(rmarkdown)
+help(pkg="rmarkdown")
+help(package="rmarkdown")
+wd()
+getwd()
+ls()
+setwd("/Users/alexgillett/Desktop/")
+devtools::document("MIMsim")
+help(package="knitr")
+knitr::knit("/MIMsim/vignettes/eCI-example-code.Rmd")
+library(rmarkdown)
+knitr::knit("/MIMsim/vignettes/eCI-example-code.Rmd")
+knitr::knit("/Users/alexgillett/Desktop/MIMsim/vignettes/eCI-example-code.Rmd")
+setwd("/Users/alexgillett/Desktop/MIMsim/vignettes/")
+knitr::knit("eCI-example-code.Rmd")
+?knitr::knit2html
+knitr::knit2html("eCI-example-code.Rmd")
+?knitr::knit2pdf
+knitr::knit2pdf("eCI-example-code.Rmd")
+knitr::rst2pdf("eCI-example-code.Rmd")
+knitr::texi2pdf("eCI-example-code.Rmd")
+knitr::knit2pdf("eCI-example-code.md")
+?knitr::knit2html
+knitr::knit2pdf("eCI-example-code.md", compilet="pdflatex")
+knitr::knit2pdf("eCI-example-code.md")
+knitr::knit2pdf("eCI-example-code.md", compiler="pdflatx")
+knitr::knit2pdf("eCI-example-code.md", compiler="pdflatex")
+knitr::knit("eCI-example-code.Rmd")
+?knitr::knit
+knitr::knit("eCI-example-code.md")
+knitr::knit("eCI-example-code.txt")
+knitr::knit("eCI-example-code.Rmd", tangle=T)
+knitr::purl("eCI-example-code.Rmd")
+knitr::knit("eCI-example-code.Rmd", output="tex")
+?knitr::knit2tex
+?rmarkdown
+render("eCI-example-code.Rmd", pdf_document(latex.engine = "lualatex"))
+render("eCI-example-code.Rmd", pdf_document())
+render("eCI-example-code.Rmd", pdf_document(latex.engine = "LuaLaTeX"))
+knitr::knit("eCI-example-code.Rmd", tangle=T)
+knitr::knit("eCI-example-code.Rmd")
+knitr::knit2html("eCI-example-code.Rmd")
+knitr::knit2pdf("eCI-example-code.Rmd")
+knitr::knit2html("eCI-example-code.Rmd")
+knitr::knit2html("eCI-example-code.Rmd")
+?data.table
+knitr::knit2html("eCI-example-code.Rmd")
+?knitr::knit2html
+knitr::knit2html("eCI-example-code.Rmd", title = "eCI")
+knitr::rmakrdown("eCI-example-code.Rmd")
+knitr::rmarkdown("eCI-example-code.Rmd")
+knitr::knit2html("eCI-example-code.Rmd")
+knitr::knit2html("eCI-example-code.Rmd")
+knitr::knit2html("eCI-example-code.md")
+knitr::knit2html("eCI-example-code.Rmd")
+?render
+devtools::document("/Users/alexgillett/Desktop/MIMsim")

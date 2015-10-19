@@ -1,0 +1,15 @@
+#' @title Mixed inheritance model simulations of disease within family studies.
+#'
+#' @description A package for simulating data from family studies of disease risk. Disease is modelled using a mixed inheritance model (MIM). Simulated pedigrees are bi-linear and span \eqn{3} or \eqn{4} generations. The ascertainment of families can be influenced by the family history of disease, allowing users of \code{MIMsim} to explore the effect of ascertainment bias within family studies of disease risk and penetrance.
+#'
+#' @details \code{\link{mimsim}} is the simulation function. Users specify inputs for the disease model, family structure and ascertainment procedure. 
+#' A range of summary functions exist within \code{MIMsim} to aid exploration of the outputted families.
+#'
+#' @seealso The mixed inheritance model is a liability threshold approach where disease can be jointly influenced by a combination of: 1. a polygenic component, 2. a major disease locus and 3. an environmental component. For a brief description of the mixed inheritance model see \code{\link{mimsim}}. For a more detailed resources see 'References'.
+#'
+#' Output from summary functions within \code{MIMsim} come in the form of a \code{data.table}; please see \code{\link[data.table]{data.table}} for details.
+#' 
+#' @docType package
+#' @name MIMsim-package
+#' 
+NULL
